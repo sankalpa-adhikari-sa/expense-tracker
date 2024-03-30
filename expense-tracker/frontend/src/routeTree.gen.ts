@@ -13,25 +13,28 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as DashboardImport } from './routes/dashboard'
-import { Route as TransactionmethodImport } from './routes/_transaction_method'
-import { Route as IncomeImport } from './routes/_income'
-import { Route as ExpenseImport } from './routes/_expense'
-import { Route as ContactsImport } from './routes/_contacts'
-import { Route as CategoryImport } from './routes/_category'
-import { Route as EventsIndexImport } from './routes/events/index'
-import { Route as EventsEventsIdImport } from './routes/events/$eventsId'
-import { Route as TransactionmethodTransactionmethodImport } from './routes/_transaction_method/transaction_method'
-import { Route as IncomeIncomeImport } from './routes/_income/income'
-import { Route as ExpenseExpenseImport } from './routes/_expense/expense'
-import { Route as ContactsContactsImport } from './routes/_contacts/contacts'
-import { Route as CategoryCategoryImport } from './routes/_category/category'
+import { Route as PrivateImport } from './routes/_private'
+import { Route as IndexImport } from './routes/index'
+import { Route as PrivateDashboardImport } from './routes/_private/dashboard'
+import { Route as PrivateTransactionmethodImport } from './routes/_private/_transaction_method'
+import { Route as PrivateSettingsImport } from './routes/_private/_settings'
+import { Route as PrivateIncomeImport } from './routes/_private/_income'
+import { Route as PrivateExpenseImport } from './routes/_private/_expense'
+import { Route as PrivateContactsImport } from './routes/_private/_contacts'
+import { Route as PrivateCategoryImport } from './routes/_private/_category'
 import { Route as authenticationAuthenticationImport } from './routes/(authentication)/authentication'
+import { Route as PrivateEventsIndexImport } from './routes/_private/events/index'
+import { Route as PrivateEventsEventsIdImport } from './routes/_private/events/$eventsId'
+import { Route as PrivateTransactionmethodTransactionmethodImport } from './routes/_private/_transaction_method/transaction_method'
+import { Route as PrivateSettingsSettingsImport } from './routes/_private/_settings/settings'
+import { Route as PrivateIncomeIncomeImport } from './routes/_private/_income/income'
+import { Route as PrivateExpenseExpenseImport } from './routes/_private/_expense/expense'
+import { Route as PrivateContactsContactsImport } from './routes/_private/_contacts/contacts'
+import { Route as PrivateCategoryCategoryImport } from './routes/_private/_category/category'
 
 // Create Virtual Routes
 
 const AboutLazyImport = createFileRoute('/about')()
-const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
@@ -40,75 +43,49 @@ const AboutLazyRoute = AboutLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
-const DashboardRoute = DashboardImport.update({
-  path: '/dashboard',
+const PrivateRoute = PrivateImport.update({
+  id: '/_private',
   getParentRoute: () => rootRoute,
 } as any)
 
-const TransactionmethodRoute = TransactionmethodImport.update({
-  id: '/_transaction_method',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IncomeRoute = IncomeImport.update({
-  id: '/_income',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ExpenseRoute = ExpenseImport.update({
-  id: '/_expense',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ContactsRoute = ContactsImport.update({
-  id: '/_contacts',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CategoryRoute = CategoryImport.update({
-  id: '/_category',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-
-const EventsIndexRoute = EventsIndexImport.update({
-  path: '/events/',
-  getParentRoute: () => rootRoute,
 } as any)
 
-const EventsEventsIdRoute = EventsEventsIdImport.update({
-  path: '/events/$eventsId',
-  getParentRoute: () => rootRoute,
+const PrivateDashboardRoute = PrivateDashboardImport.update({
+  path: '/dashboard',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
-const TransactionmethodTransactionmethodRoute =
-  TransactionmethodTransactionmethodImport.update({
-    path: '/transaction_method',
-    getParentRoute: () => TransactionmethodRoute,
-  } as any)
-
-const IncomeIncomeRoute = IncomeIncomeImport.update({
-  path: '/income',
-  getParentRoute: () => IncomeRoute,
+const PrivateTransactionmethodRoute = PrivateTransactionmethodImport.update({
+  id: '/_transaction_method',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
-const ExpenseExpenseRoute = ExpenseExpenseImport.update({
-  path: '/expense',
-  getParentRoute: () => ExpenseRoute,
+const PrivateSettingsRoute = PrivateSettingsImport.update({
+  id: '/_settings',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
-const ContactsContactsRoute = ContactsContactsImport.update({
-  path: '/contacts',
-  getParentRoute: () => ContactsRoute,
+const PrivateIncomeRoute = PrivateIncomeImport.update({
+  id: '/_income',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
-const CategoryCategoryRoute = CategoryCategoryImport.update({
-  path: '/category',
-  getParentRoute: () => CategoryRoute,
+const PrivateExpenseRoute = PrivateExpenseImport.update({
+  id: '/_expense',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateContactsRoute = PrivateContactsImport.update({
+  id: '/_contacts',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateCategoryRoute = PrivateCategoryImport.update({
+  id: '/_category',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
 const authenticationAuthenticationRoute =
@@ -117,36 +94,57 @@ const authenticationAuthenticationRoute =
     getParentRoute: () => rootRoute,
   } as any)
 
+const PrivateEventsIndexRoute = PrivateEventsIndexImport.update({
+  path: '/events/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateEventsEventsIdRoute = PrivateEventsEventsIdImport.update({
+  path: '/events/$eventsId',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateTransactionmethodTransactionmethodRoute =
+  PrivateTransactionmethodTransactionmethodImport.update({
+    path: '/transaction_method',
+    getParentRoute: () => PrivateTransactionmethodRoute,
+  } as any)
+
+const PrivateSettingsSettingsRoute = PrivateSettingsSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => PrivateSettingsRoute,
+} as any)
+
+const PrivateIncomeIncomeRoute = PrivateIncomeIncomeImport.update({
+  path: '/income',
+  getParentRoute: () => PrivateIncomeRoute,
+} as any)
+
+const PrivateExpenseExpenseRoute = PrivateExpenseExpenseImport.update({
+  path: '/expense',
+  getParentRoute: () => PrivateExpenseRoute,
+} as any)
+
+const PrivateContactsContactsRoute = PrivateContactsContactsImport.update({
+  path: '/contacts',
+  getParentRoute: () => PrivateContactsRoute,
+} as any)
+
+const PrivateCategoryCategoryRoute = PrivateCategoryCategoryImport.update({
+  path: '/category',
+  getParentRoute: () => PrivateCategoryRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_category': {
-      preLoaderRoute: typeof CategoryImport
-      parentRoute: typeof rootRoute
-    }
-    '/_contacts': {
-      preLoaderRoute: typeof ContactsImport
-      parentRoute: typeof rootRoute
-    }
-    '/_expense': {
-      preLoaderRoute: typeof ExpenseImport
-      parentRoute: typeof rootRoute
-    }
-    '/_income': {
-      preLoaderRoute: typeof IncomeImport
-      parentRoute: typeof rootRoute
-    }
-    '/_transaction_method': {
-      preLoaderRoute: typeof TransactionmethodImport
-      parentRoute: typeof rootRoute
-    }
-    '/dashboard': {
-      preLoaderRoute: typeof DashboardImport
+    '/_private': {
+      preLoaderRoute: typeof PrivateImport
       parentRoute: typeof rootRoute
     }
     '/about': {
@@ -157,33 +155,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticationAuthenticationImport
       parentRoute: typeof rootRoute
     }
-    '/_category/category': {
-      preLoaderRoute: typeof CategoryCategoryImport
-      parentRoute: typeof CategoryImport
+    '/_private/_category': {
+      preLoaderRoute: typeof PrivateCategoryImport
+      parentRoute: typeof PrivateImport
     }
-    '/_contacts/contacts': {
-      preLoaderRoute: typeof ContactsContactsImport
-      parentRoute: typeof ContactsImport
+    '/_private/_contacts': {
+      preLoaderRoute: typeof PrivateContactsImport
+      parentRoute: typeof PrivateImport
     }
-    '/_expense/expense': {
-      preLoaderRoute: typeof ExpenseExpenseImport
-      parentRoute: typeof ExpenseImport
+    '/_private/_expense': {
+      preLoaderRoute: typeof PrivateExpenseImport
+      parentRoute: typeof PrivateImport
     }
-    '/_income/income': {
-      preLoaderRoute: typeof IncomeIncomeImport
-      parentRoute: typeof IncomeImport
+    '/_private/_income': {
+      preLoaderRoute: typeof PrivateIncomeImport
+      parentRoute: typeof PrivateImport
     }
-    '/_transaction_method/transaction_method': {
-      preLoaderRoute: typeof TransactionmethodTransactionmethodImport
-      parentRoute: typeof TransactionmethodImport
+    '/_private/_settings': {
+      preLoaderRoute: typeof PrivateSettingsImport
+      parentRoute: typeof PrivateImport
     }
-    '/events/$eventsId': {
-      preLoaderRoute: typeof EventsEventsIdImport
-      parentRoute: typeof rootRoute
+    '/_private/_transaction_method': {
+      preLoaderRoute: typeof PrivateTransactionmethodImport
+      parentRoute: typeof PrivateImport
     }
-    '/events/': {
-      preLoaderRoute: typeof EventsIndexImport
-      parentRoute: typeof rootRoute
+    '/_private/dashboard': {
+      preLoaderRoute: typeof PrivateDashboardImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/_category/category': {
+      preLoaderRoute: typeof PrivateCategoryCategoryImport
+      parentRoute: typeof PrivateCategoryImport
+    }
+    '/_private/_contacts/contacts': {
+      preLoaderRoute: typeof PrivateContactsContactsImport
+      parentRoute: typeof PrivateContactsImport
+    }
+    '/_private/_expense/expense': {
+      preLoaderRoute: typeof PrivateExpenseExpenseImport
+      parentRoute: typeof PrivateExpenseImport
+    }
+    '/_private/_income/income': {
+      preLoaderRoute: typeof PrivateIncomeIncomeImport
+      parentRoute: typeof PrivateIncomeImport
+    }
+    '/_private/_settings/settings': {
+      preLoaderRoute: typeof PrivateSettingsSettingsImport
+      parentRoute: typeof PrivateSettingsImport
+    }
+    '/_private/_transaction_method/transaction_method': {
+      preLoaderRoute: typeof PrivateTransactionmethodTransactionmethodImport
+      parentRoute: typeof PrivateTransactionmethodImport
+    }
+    '/_private/events/$eventsId': {
+      preLoaderRoute: typeof PrivateEventsEventsIdImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/events/': {
+      preLoaderRoute: typeof PrivateEventsIndexImport
+      parentRoute: typeof PrivateImport
     }
   }
 }
@@ -191,17 +221,22 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  IndexLazyRoute,
-  CategoryRoute.addChildren([CategoryCategoryRoute]),
-  ContactsRoute.addChildren([ContactsContactsRoute]),
-  ExpenseRoute.addChildren([ExpenseExpenseRoute]),
-  IncomeRoute.addChildren([IncomeIncomeRoute]),
-  TransactionmethodRoute.addChildren([TransactionmethodTransactionmethodRoute]),
-  DashboardRoute,
+  IndexRoute,
+  PrivateRoute.addChildren([
+    PrivateCategoryRoute.addChildren([PrivateCategoryCategoryRoute]),
+    PrivateContactsRoute.addChildren([PrivateContactsContactsRoute]),
+    PrivateExpenseRoute.addChildren([PrivateExpenseExpenseRoute]),
+    PrivateIncomeRoute.addChildren([PrivateIncomeIncomeRoute]),
+    PrivateSettingsRoute.addChildren([PrivateSettingsSettingsRoute]),
+    PrivateTransactionmethodRoute.addChildren([
+      PrivateTransactionmethodTransactionmethodRoute,
+    ]),
+    PrivateDashboardRoute,
+    PrivateEventsEventsIdRoute,
+    PrivateEventsIndexRoute,
+  ]),
   AboutLazyRoute,
   authenticationAuthenticationRoute,
-  EventsEventsIdRoute,
-  EventsIndexRoute,
 ])
 
 /* prettier-ignore-end */

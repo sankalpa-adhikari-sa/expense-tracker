@@ -22,7 +22,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import pb from "@/_pocketbase/pocketbase";
-import ContactsForm from "@/routes/-components/ContactsForm";
+import ContactsForm from "@/routes/-components/forms/ContactsForm";
 import { useDeleteContactsByID } from "@/hooks/useContacts";
 import { Separator } from "../ui/separator";
 function ContactCard({ props }: any) {

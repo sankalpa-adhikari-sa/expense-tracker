@@ -8,6 +8,7 @@ import {
   WalletIcon,
   CalendarClockIcon,
   ContactIcon,
+  SettingsIcon,
 } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -15,12 +16,13 @@ import { useAtom } from "jotai";
 import { collapsed_atom } from "@/lib/atoms/atom";
 import UserAvatar from "./user-avatar";
 import { ModeToggle } from "@/components/custom/mode_toggle";
+import { NavBot } from "@/components/custom/navbar-bot";
 
 export default function NavbarLayout() {
   const [isCollapsed, _] = useAtom(collapsed_atom);
   return (
     <TooltipProvider delayDuration={0}>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col h-screen items-center justify-between">
         <Nav
           isCollapsed={isCollapsed}
           links={[
@@ -68,9 +70,20 @@ export default function NavbarLayout() {
             },
           ]}
         />
-        <div className="flex flex-wrap items-center justify-between">
+        <div className="flex flex-col flex-wrap items-center">
           <UserAvatar />
           <ModeToggle />
+          <NavBot
+            isCollapsed={isCollapsed}
+            links={[
+              {
+                title: "Settings",
+                label: "",
+                icon: SettingsIcon,
+                href: "/settings",
+              },
+            ]}
+          />
         </div>
       </div>
     </TooltipProvider>

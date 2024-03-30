@@ -22,12 +22,7 @@ export const incomeSchema = z.object({
   expand: z.any().optional(),
   id: z.string().optional(),
 });
-// export const incomeTableSchema = incomeSchema.extend({
-//   expand: z.any().optional(),
-// });
-// export const expenseTableSchema = expenseSchema.extend({
-//   expand: z.any().optional(),
-// });
+
 export const unitsSchema = z.object({
   name: z.string().min(1, { message: "Unit is required." }),
 });
@@ -48,6 +43,26 @@ export const categorySchema = z.object({
   details: z.string().optional(),
   id: z.string().optional(),
 });
+export const adminPasswordSchema = z
+  .object({
+    password: z.string().min(4, { message: "Password is required." }),
+    passwordConfirm: z
+      .string()
+      .min(4, { message: "Confirm Password is required." }),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: "Passwords don't match",
+    path: ["passwordConfirm"],
+  });
+export const adminEmailSchema = z
+  .object({
+    email: z.string().email({ message: "Email must be valid" }),
+    emailConfirm: z.string().email({ message: "Email must be valid" }),
+  })
+  .refine((data) => data.email === data.emailConfirm, {
+    message: "email don't match",
+    path: ["emailConfirm"],
+  });
 export const contactsSchema = z.object({
   name: z.string().min(1, { message: "Name is required." }),
   company: z.string().optional(),
@@ -59,12 +74,6 @@ export const contactsSchema = z.object({
   id: z.string().optional(),
   avatar: z.any().optional(),
 });
-export const postPatchSchema = z.object({
-  title: z.string().min(3).max(128).optional(),
-
-  // TODO: Type this properly from editorjs block types?
-  content: z.any().optional(),
-});
 
 export type Expense = z.infer<typeof expenseSchema>;
 export type Income = z.infer<typeof incomeSchema>;
@@ -75,3 +84,5 @@ export type Contacts = z.infer<typeof contactsSchema>;
 export type TransactionMethod = z.infer<typeof transactionMethodSchema>;
 export type Events = z.infer<typeof eventsSchema>;
 export type Units = z.infer<typeof unitsSchema>;
+export type AdminPassword = z.infer<typeof adminPasswordSchema>;
+export type AdminEmail = z.infer<typeof adminEmailSchema>;

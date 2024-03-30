@@ -15,6 +15,17 @@ const addAdmin = async (data: Data) => {
     passwordConfirm: data.passwordConfirm,
   });
 };
+const updateAdminPassword = async (data: Data) => {
+  return await pb.admins.update(data.adminId, {
+    password: data.password,
+    passwordConfirm: data.passwordConfirm,
+  });
+};
+const updateAdminEmail = async (data: Data) => {
+  return await pb.admins.update(data.adminId, {
+    email: data.email,
+  });
+};
 const loginAdmin = async (data: Data) => {
   return pb.admins.authWithPassword(data.email, data.password);
 };
@@ -47,6 +58,28 @@ export const useAddAdminData = () => {
     onSuccess: () => {
       navigate({ to: "/dashboard" });
       toast.success("Admin Login Success");
+    },
+  });
+};
+export const useUpdateAdminPassword = () => {
+  return useMutation({
+    mutationFn: updateAdminPassword,
+    onError: (error) => {
+      toast.error(`${error}`);
+    },
+    onSuccess: () => {
+      toast.success("Admin Password Update Success");
+    },
+  });
+};
+export const useUpdateAdminEmail = () => {
+  return useMutation({
+    mutationFn: updateAdminEmail,
+    onError: (error) => {
+      toast.error(`${error}`);
+    },
+    onSuccess: () => {
+      toast.success("Admin Email Update Success");
     },
   });
 };

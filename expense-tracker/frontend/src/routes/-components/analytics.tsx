@@ -7,8 +7,9 @@ import { useExpense } from "@/hooks/useExpense";
 import CashflowOptions from "@/lib/echarts/cashflowOption";
 import PieChartOption from "@/lib/echarts/PieChartOption";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
+import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 function Analytics(props: any) {
   const eventsId = props?.eventsId;
   const [dateRange, _] = useAtom(date_range_atom);
@@ -24,8 +25,51 @@ function Analytics(props: any) {
   const ExpenseTransactionMethod = Category(ExpenseData, "transaction_method");
   const IncomeTransactionData = TransactionData(IncomeData);
   const ExpenseTransactionData = TransactionData(ExpenseData);
+  const total_income = IncomeData.reduce((acc: number, item: any) => {
+    return acc + item.amount;
+  }, 0);
+  const total_expense = ExpenseData.reduce((acc: number, item: any) => {
+    return acc + item.amount;
+  }, 0);
+
   return (
     <>
+      <div className="flex flex-row gap-4 items-center justify-between">
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Income</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-row gap-4 items-center">
+            <span className="text-muted-foreground text-xs">NPR</span>
+            <span className="font-bold">{total_income}</span>
+          </CardContent>
+        </Card>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Expense</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-row gap-4 items-center">
+            <span className="text-muted-foreground text-xs">NPR</span>
+            <span className="font-bold">{total_expense}</span>
+          </CardContent>
+        </Card>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle className="flex flex-row gap-4">
+              {total_income - total_expense < 0 ? "Loss" : "Profit"}
+              {total_income - total_expense < 0 ? (
+                <TrendingDownIcon className="stroke-destructive" />
+              ) : (
+                <TrendingUpIcon className="stroke-green-600" />
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-row gap-4 items-center">
+            <span className="text-muted-foreground text-xs">NPR</span>
+            <span className="font-bold">{total_income - total_expense}</span>
+          </CardContent>
+        </Card>
+      </div>
       <h4 className="font-bold text-lg">Income</h4>
       <div className="flex flex-col w-full gap-3">
         <Card>
