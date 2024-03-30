@@ -1,18 +1,17 @@
-"use client";
-
-import * as React from "react";
+import "@/editor.css";
 import { Link } from "@tanstack/react-router";
 import EditorJS from "@editorjs/editorjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import * as z from "zod";
-import "@/app/editor.css";
+
 import { cn } from "@/lib/utils";
 import { postPatchSchema } from "@/types/type";
 import { buttonVariants } from "@/components/ui/button";
 import { ChevronLeftIcon, Loader2Icon } from "lucide-react";
-import { useAddPostsData } from "@/hooks/usePosts";
+import { useAddPostsData, useUpdatePostsByID } from "@/hooks/usePosts";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type FormData = z.infer<typeof postPatchSchema>;
 
@@ -20,12 +19,12 @@ export function Editor({ post }: any) {
   const { register, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(postPatchSchema),
   });
-  const ref = React.useRef<EditorJS>();
+  const ref = useRef<EditorJS>();
 
-  const [isSaving, setIsSaving] = React.useState<boolean>(false);
-  const [isMounted, setIsMounted] = React.useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
-  const initializeEditor = React.useCallback(async () => {
+  const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
     // @ts-ignore
     const Header = (await import("@editorjs/header")).default;
@@ -66,13 +65,13 @@ export function Editor({ post }: any) {
     }
   }, [post]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window !== "undefined") {
       setIsMounted(true);
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isMounted) {
       initializeEditor();
 
@@ -83,6 +82,7 @@ export function Editor({ post }: any) {
     }
   }, [isMounted, initializeEditor]);
   const { mutate: addPostsData } = useAddPostsData();
+  const { mutate: updatePost } = useUpdatePostsByID();
   async function onSubmit(data: FormData) {
     setIsSaving(true);
     const blocks = await ref.current?.save();
@@ -90,7 +90,12 @@ export function Editor({ post }: any) {
       title: data.title,
       content: blocks,
     };
-    addPostsData(post_data);
+
+    if (post.title && post.id) {
+      updatePost({ id: post.id, data: post_data });
+    } else {
+      addPostsData(post_data);
+    }
 
     setIsSaving(false);
   }
@@ -105,7 +110,7 @@ export function Editor({ post }: any) {
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
-              href="/dashboard"
+              to="/dashboard"
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               <>
@@ -132,13 +137,6 @@ export function Editor({ post }: any) {
             {...register("title")}
           />
           <div id="editor" className="min-h-[500px]" />
-          <p className="text-sm text-gray-500">
-            Use{" "}
-            <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">
-              Slash
-            </kbd>{" "}
-            to open the command menu.
-          </p>
         </div>
       </div>
     </form>

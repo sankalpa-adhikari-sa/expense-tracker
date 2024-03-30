@@ -40,6 +40,8 @@ import { useAddExpenseData, useUpdateExpenseByID } from "@/hooks/useExpense";
 
 export default function ExpenseForm(props: any) {
   const data = props?.data;
+  const eventsId = props?.eventsId;
+  console.log(eventsId);
   const isAddMode = !data;
 
   const formOptions = {
@@ -75,7 +77,7 @@ export default function ExpenseForm(props: any) {
   }));
 
   const createExpense = (data: any) => {
-    addExpenseData(data);
+    addExpenseData({ ...data, events: eventsId });
   };
   const updateExpense = (data: any) => {
     updateExpenseData({ id: data.id, data: data });

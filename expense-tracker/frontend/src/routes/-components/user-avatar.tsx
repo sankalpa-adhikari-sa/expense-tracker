@@ -18,7 +18,7 @@ function UserAvatar() {
   const handleLogout = () => {
     console.log("logout");
     pb.authStore.clear();
-    navigate({ to: "/" });
+    navigate({ to: "/authentication" });
   };
   return (
     <>

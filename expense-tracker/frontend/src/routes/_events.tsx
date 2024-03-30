@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { Separator } from "@/components/ui/separator";
-import AddEvents from "./-components/addEvents";
+import AddEvents from "@/routes/-components/addEvents";
 export const Route = createFileRoute("/_events")({
   component: EventsLayout,
 });

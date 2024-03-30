@@ -11,18 +11,31 @@ import {
 } from "@/components/ui/sheet";
 import { Events } from "@/types/type";
 import { DataTableColumnHeader } from "@/components/custom/table/data-table-column-header";
-import { PencilIcon, TrashIcon } from "lucide-react";
+import { ExternalLinkIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { useDeleteEventsByID } from "@/hooks/useEvents";
 import EventsForm from "./EventsForm";
 import { format } from "date-fns";
+import { useNavigate } from "@tanstack/react-router";
+import { Separator } from "@/components/ui/separator";
 
 function TableRowActions({ id, data }: { id: any; data?: any }) {
   const deleteEvents = useDeleteEventsByID();
   const handleDelete = (id: any) => {
     return deleteEvents.mutate(id);
   };
+  const navigate = useNavigate({ from: "/events" });
   return (
-    <div className="flex flex-row gap-3">
+    <div className="flex flex-row gap-4">
+      <Separator orientation="vertical" className="h-4" />
+      <ExternalLinkIcon
+        className="cursor-pointer w-4 h-4"
+        onClick={() =>
+          navigate({
+            to: "/events/$eventsId",
+            params: { eventsId: id },
+          })
+        }
+      />
       <Sheet>
         <SheetTrigger asChild>
           <PencilIcon className="cursor-pointer w-4 h-4" />
@@ -35,6 +48,7 @@ function TableRowActions({ id, data }: { id: any; data?: any }) {
         </SheetContent>
       </Sheet>
 
+      <Separator orientation="vertical" className="h-4" />
       <TrashIcon
         onClick={() => handleDelete(id)}
         className="cursor-pointer w-4 h-4 stroke-destructive"

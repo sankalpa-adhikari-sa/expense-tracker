@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { Separator } from "@/components/ui/separator";
-import AddIncome from "./-components/addIncome";
+import AddIncome from "@/routes/-components/addIncome";
 export const Route = createFileRoute("/_income")({
   component: IncomeLayout,
 });

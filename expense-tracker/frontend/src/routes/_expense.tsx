@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { Separator } from "@/components/ui/separator";
-import AddExpense from "./-components/addExpense";
+import AddExpense from "@/routes/-components/addExpense";
 export const Route = createFileRoute("/_expense")({
   component: ExpenseLayout,
 });

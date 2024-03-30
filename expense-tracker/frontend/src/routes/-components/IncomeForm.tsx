@@ -39,6 +39,7 @@ import { useAddIncomeData, useUpdateIncomeByID } from "@/hooks/useIncome";
 
 export default function IncomeForm(props: any) {
   const data = props?.data;
+  const eventsId = props?.eventsId;
   const isAddMode = !data;
   const formOptions = {
     resolver: zodResolver(incomeSchema),
@@ -72,7 +73,7 @@ export default function IncomeForm(props: any) {
   }));
 
   const createIncome = (data: any) => {
-    addIncomeData(data);
+    addIncomeData({ ...data, events: eventsId });
   };
   const updateIncome = (data: any) => {
     updateIncomeData({ id: data.id, data: data });

@@ -12,7 +12,7 @@ import {
 import { useAtom } from "jotai";
 import { collapsed_atom } from "@/lib/atoms/atom";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@tanstack/react-router";
+import { Link, useMatchRoute } from "@tanstack/react-router";
 
 interface NavProps {
   isCollapsed: boolean;
@@ -25,7 +25,6 @@ interface NavProps {
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
-  const pathname = "/";
   const [_, setIsCollapsed] = useAtom(collapsed_atom);
 
   return (
@@ -47,7 +46,10 @@ export function Nav({ links, isCollapsed }: NavProps) {
         )}
         <Separator className="my-4" />
         {links.map((link, index) => {
-          const isActive = pathname ? pathname == link.href : false;
+          const matchRoute = useMatchRoute();
+          //@ts-ignore
+          const isActive = matchRoute({ to: link.href });
+          // const isActive = pathname ? pathname == link.href : false;
           if (isCollapsed) {
             return (
               <Tooltip key={index} delayDuration={0}>

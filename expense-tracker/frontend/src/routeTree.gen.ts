@@ -23,16 +23,16 @@ import { Route as CategoryImport } from './routes/_category'
 import { Route as TransactionmethodTransactionmethodImport } from './routes/_transaction_method/transaction_method'
 import { Route as IncomeIncomeImport } from './routes/_income/income'
 import { Route as ExpenseExpenseImport } from './routes/_expense/expense'
-import { Route as EventsEventsImport } from './routes/_events/events'
 import { Route as ContactsContactsImport } from './routes/_contacts/contacts'
 import { Route as CategoryCategoryImport } from './routes/_category/category'
+import { Route as authenticationAuthenticationImport } from './routes/(authentication)/authentication'
+import { Route as EventsEventsIndexImport } from './routes/_events/events.index'
+import { Route as EventsEventsEventsIdImport } from './routes/_events/events.$eventsId'
 
 // Create Virtual Routes
 
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
-const PostsIndexLazyImport = createFileRoute('/posts/')()
-const PostsPostsIdLazyImport = createFileRoute('/posts/$postsId')()
 
 // Create/Update Routes
 
@@ -81,18 +81,6 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const PostsIndexLazyRoute = PostsIndexLazyImport.update({
-  path: '/posts/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/posts/index.lazy').then((d) => d.Route))
-
-const PostsPostsIdLazyRoute = PostsPostsIdLazyImport.update({
-  path: '/posts/$postsId',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/posts/$postsId.lazy').then((d) => d.Route),
-)
-
 const TransactionmethodTransactionmethodRoute =
   TransactionmethodTransactionmethodImport.update({
     path: '/transaction_method',
@@ -109,11 +97,6 @@ const ExpenseExpenseRoute = ExpenseExpenseImport.update({
   getParentRoute: () => ExpenseRoute,
 } as any)
 
-const EventsEventsRoute = EventsEventsImport.update({
-  path: '/events',
-  getParentRoute: () => EventsRoute,
-} as any)
-
 const ContactsContactsRoute = ContactsContactsImport.update({
   path: '/contacts',
   getParentRoute: () => ContactsRoute,
@@ -122,6 +105,22 @@ const ContactsContactsRoute = ContactsContactsImport.update({
 const CategoryCategoryRoute = CategoryCategoryImport.update({
   path: '/category',
   getParentRoute: () => CategoryRoute,
+} as any)
+
+const authenticationAuthenticationRoute =
+  authenticationAuthenticationImport.update({
+    path: '/authentication',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const EventsEventsIndexRoute = EventsEventsIndexImport.update({
+  path: '/events/',
+  getParentRoute: () => EventsRoute,
+} as any)
+
+const EventsEventsEventsIdRoute = EventsEventsEventsIdImport.update({
+  path: '/events/$eventsId',
+  getParentRoute: () => EventsRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -164,6 +163,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/(authentication)/authentication': {
+      preLoaderRoute: typeof authenticationAuthenticationImport
+      parentRoute: typeof rootRoute
+    }
     '/_category/category': {
       preLoaderRoute: typeof CategoryCategoryImport
       parentRoute: typeof CategoryImport
@@ -171,10 +174,6 @@ declare module '@tanstack/react-router' {
     '/_contacts/contacts': {
       preLoaderRoute: typeof ContactsContactsImport
       parentRoute: typeof ContactsImport
-    }
-    '/_events/events': {
-      preLoaderRoute: typeof EventsEventsImport
-      parentRoute: typeof EventsImport
     }
     '/_expense/expense': {
       preLoaderRoute: typeof ExpenseExpenseImport
@@ -188,13 +187,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TransactionmethodTransactionmethodImport
       parentRoute: typeof TransactionmethodImport
     }
-    '/posts/$postsId': {
-      preLoaderRoute: typeof PostsPostsIdLazyImport
-      parentRoute: typeof rootRoute
+    '/_events/events/$eventsId': {
+      preLoaderRoute: typeof EventsEventsEventsIdImport
+      parentRoute: typeof EventsImport
     }
-    '/posts/': {
-      preLoaderRoute: typeof PostsIndexLazyImport
-      parentRoute: typeof rootRoute
+    '/_events/events/': {
+      preLoaderRoute: typeof EventsEventsIndexImport
+      parentRoute: typeof EventsImport
     }
   }
 }
@@ -205,14 +204,13 @@ export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   CategoryRoute.addChildren([CategoryCategoryRoute]),
   ContactsRoute.addChildren([ContactsContactsRoute]),
-  EventsRoute.addChildren([EventsEventsRoute]),
+  EventsRoute.addChildren([EventsEventsEventsIdRoute, EventsEventsIndexRoute]),
   ExpenseRoute.addChildren([ExpenseExpenseRoute]),
   IncomeRoute.addChildren([IncomeIncomeRoute]),
   TransactionmethodRoute.addChildren([TransactionmethodTransactionmethodRoute]),
   DashboardRoute,
   AboutLazyRoute,
-  PostsPostsIdLazyRoute,
-  PostsIndexLazyRoute,
+  authenticationAuthenticationRoute,
 ])
 
 /* prettier-ignore-end */

@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { Separator } from "@/components/ui/separator";
-import AddContacts from "./-components/addContacts";
+import AddContacts from "@/routes/-components/addContacts";
 export const Route = createFileRoute("/_contacts")({
   component: ContactsLayout,
 });

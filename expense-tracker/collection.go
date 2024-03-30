@@ -232,6 +232,16 @@ func addIncomeCollection(app *pocketbase.PocketBase) func(e *core.ServeEvent) er
                             CascadeDelete: true,
                         },
                     },
+                    &schema.SchemaField{
+                        Name:     "events",
+                        Type:     schema.FieldTypeRelation,
+                        Required: false,
+                        Options:  &schema.RelationOptions{
+                            MaxSelect:     types.Pointer(1),
+                            CollectionId:  "events_id",
+                            CascadeDelete: true,
+                        },
+                    },
                 ),
             }
             err := app.Dao().SaveCollection(collection)
@@ -319,6 +329,16 @@ func addExpenseCollection(app *pocketbase.PocketBase) func(e *core.ServeEvent) e
                             CascadeDelete: true,
                         },
                     },
+                    &schema.SchemaField{
+                        Name:     "events",
+                        Type:     schema.FieldTypeRelation,
+                        Required: false,
+                        Options:  &schema.RelationOptions{
+                            MaxSelect:     types.Pointer(1),
+                            CollectionId:  "events_id",
+                            CascadeDelete: true,
+                        },
+                    },
                 ),
             }
             err := app.Dao().SaveCollection(collection)
@@ -371,6 +391,14 @@ func addContactsCollection(app *pocketbase.PocketBase) func(e *core.ServeEvent) 
                         Options:  &schema.TextOptions{},
                     },
                     &schema.SchemaField{
+                        Name:     "position",
+                        Type:     schema.FieldTypeText,
+                        Unique:   false,
+                        Required: false,
+                        System:   false,
+                        Options:  &schema.TextOptions{},
+                    },
+                    &schema.SchemaField{
                         Name:     "blood_group",
                         Type:     schema.FieldTypeText,
                         Unique:   false,
@@ -408,7 +436,11 @@ func addContactsCollection(app *pocketbase.PocketBase) func(e *core.ServeEvent) 
                         Unique:   false,
                         Required: false,
                         System:   false,
-                        Options:  &schema.FileOptions{},
+                        Options:  &schema.FileOptions{
+                            MaxSize: 5242880,
+                            MaxSelect:99,
+                            
+                        },
                     },
                     
                    

@@ -24,6 +24,9 @@ export default function ContactsForm(props: any) {
     resolver: zodResolver(contactsSchema),
     defaultValues: {
       name: "",
+      address: "",
+      company: "",
+      details: "",
     },
   };
   const { mutate: addContactsData } = useAddContactsData();
@@ -34,9 +37,9 @@ export default function ContactsForm(props: any) {
     };
   }
   const form = useForm<z.infer<typeof contactsSchema>>(formOptions);
-
   const createContacts = (data: any) => {
     addContactsData(data);
+    console.log(data.avatar);
   };
   const updateContacts = (data: any) => {
     updateContactsData({ id: data.id, data: data });
@@ -143,11 +146,18 @@ export default function ContactsForm(props: any) {
           <FormField
             control={form.control}
             name="avatar"
-            render={({ field }) => (
+            render={({ field: { value, onChange, ...fieldProps } }) => (
               <FormItem>
                 <FormLabel>Avatar</FormLabel>
                 <FormControl>
-                  <Input type="file" {...field} />
+                  <Input
+                    type="file"
+                    {...fieldProps}
+                    accept="image/*, application/pdf"
+                    onChange={(event) =>
+                      onChange(event.target.files && event.target.files[0])
+                    }
+                  />
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>

@@ -9,11 +9,15 @@ import { format } from "date-fns";
 import { useAtom } from "jotai";
 import { dr_expense_atom } from "@/lib/atoms/atom";
 import { dateFilterOptions } from "@/lib/dateRange";
-function ExpenseTable() {
+function ExpenseTable(props: any) {
+  const eventsId = props?.eventsId;
   const [dateRange, _] = useAtom(dr_expense_atom);
   const col_name = "transaction_date";
   const dateFilter = dateFilterOptions(dateRange, col_name);
-  const { data: ExpenseData = [] }: any = useExpense(dateFilter);
+  const eventsFilter = `events = "${eventsId}"`;
+  const filter = eventsId ? `${dateFilter} && ${eventsFilter}` : dateFilter;
+
+  const { data: ExpenseData = [] }: any = useExpense(filter);
   const { data: TransactionMethodData = [] }: any = useTransactionMethod();
   const { data: CategoryData = [] }: any = useCategory("");
   const filterOptions = Array(

@@ -10,11 +10,14 @@ import { useAtom } from "jotai";
 import { dr_income_atom } from "@/lib/atoms/atom";
 import { dateFilterOptions } from "@/lib/dateRange";
 
-function IncomeTable() {
+function IncomeTable(props: any) {
+  const eventsId = props?.eventsId;
   const [dateRange, _] = useAtom(dr_income_atom);
   const col_name = "transaction_date";
   const dateFilter = dateFilterOptions(dateRange, col_name);
-  const { data: IncomeData = [] }: any = useIncome(dateFilter);
+  const eventsFilter = `events = "${eventsId}"`;
+  const filter = eventsId ? `${dateFilter} && ${eventsFilter}` : dateFilter;
+  const { data: IncomeData = [] }: any = useIncome(filter);
   const { data: TransactionMethodData = [] }: any = useTransactionMethod();
   const { data: CategoryData = [] }: any = useCategory("");
   const filterOptions = Array(
@@ -39,7 +42,7 @@ function IncomeTable() {
         : [],
     }
   );
-  console.log(IncomeData);
+
   const filename = `${format(new Date(), "yyMMdd")}_Income`;
 
   return (

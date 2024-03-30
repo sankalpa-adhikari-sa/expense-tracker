@@ -6,7 +6,6 @@ import { eventsColumns } from "./events_columns";
 
 function EventsTable() {
   const { data: EventsData = [] }: any = useEvents();
-  console.log(EventsData);
 
   const filename = `${format(new Date(), "yyMMdd")}_Events`;
 
