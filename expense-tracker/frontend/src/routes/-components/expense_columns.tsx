@@ -16,6 +16,7 @@ import {
 import { PencilIcon, TrashIcon } from "lucide-react";
 import ExpenseForm from "./ExpenseForm";
 import { format } from "date-fns";
+import { Badge } from "@/components/ui/badge";
 function TableRowActions({ id, data }: { id: any; data?: any }) {
   const deleteExpense = useDeleteExpenseByID();
   const handleDelete = (id: any) => {
@@ -76,7 +77,12 @@ export const expenseColumns: ColumnDef<Expense>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="max-w-[500px] truncate font-medium flex gap-3">
+            {row.original.expand.events ? (
+              <Badge variant="outline" className="rounded-md">
+                {row.original.expand.events.event_name}
+              </Badge>
+            ) : null}
             {row.getValue("Title")}
           </span>
         </div>
@@ -161,7 +167,11 @@ export const expenseColumns: ColumnDef<Expense>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate text-sm font-normal">
-            {row.getValue("Details")}
+            {row.getValue("Details") ? (
+              row.getValue("Details")
+            ) : (
+              <span className="text-muted-foreground">N/A</span>
+            )}
           </span>
         </div>
       );

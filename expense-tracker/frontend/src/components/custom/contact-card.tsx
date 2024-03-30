@@ -31,7 +31,6 @@ function ContactCard({ props }: any) {
     return deleteContacts.mutate(id);
   };
   const url = pb.files.getUrl(props, props.avatar);
-  console.log(url);
   return (
     <HoverCard key={props.id}>
       <Card className="flex-grow">

@@ -17,7 +17,12 @@ import EventsForm from "./EventsForm";
 import { format } from "date-fns";
 import { useNavigate } from "@tanstack/react-router";
 import { Separator } from "@/components/ui/separator";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 function TableRowActions({ id, data }: { id: any; data?: any }) {
   const deleteEvents = useDeleteEventsByID();
   const handleDelete = (id: any) => {
@@ -27,32 +32,62 @@ function TableRowActions({ id, data }: { id: any; data?: any }) {
   return (
     <div className="flex flex-row gap-4">
       <Separator orientation="vertical" className="h-4" />
-      <ExternalLinkIcon
-        className="cursor-pointer w-4 h-4"
-        onClick={() =>
-          navigate({
-            to: "/events/$eventsId",
-            params: { eventsId: id },
-          })
-        }
-      />
-      <Sheet>
-        <SheetTrigger asChild>
-          <PencilIcon className="cursor-pointer w-4 h-4" />
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Manage Events Methods</SheetTitle>
-          </SheetHeader>
-          <EventsForm data={data} />
-        </SheetContent>
-      </Sheet>
+      <TooltipProvider delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <ExternalLinkIcon
+              className="cursor-pointer w-4 h-4"
+              onClick={() =>
+                navigate({
+                  to: "/events/$eventsId",
+                  params: { eventsId: id },
+                })
+              }
+            />
+          </TooltipTrigger>
+          <TooltipContent side="top" className="flex items-center gap-4">
+            <p>Open Events</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
+      <TooltipProvider delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <PencilIcon className="cursor-pointer w-4 h-4" />
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Manage Events Methods</SheetTitle>
+                  </SheetHeader>
+                  <EventsForm data={data} />
+                </SheetContent>
+              </Sheet>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="flex items-center gap-4">
+            <p>Edit Events</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       <Separator orientation="vertical" className="h-4" />
-      <TrashIcon
-        onClick={() => handleDelete(id)}
-        className="cursor-pointer w-4 h-4 stroke-destructive"
-      />
+      <TooltipProvider delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <TrashIcon
+              onClick={() => handleDelete(id)}
+              className="cursor-pointer w-4 h-4 stroke-destructive"
+            />
+          </TooltipTrigger>
+          <TooltipContent side="top" className="flex items-center gap-4">
+            <p>Delete Events</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 }

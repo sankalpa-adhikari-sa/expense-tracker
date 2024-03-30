@@ -17,17 +17,16 @@ import { Route as DashboardImport } from './routes/dashboard'
 import { Route as TransactionmethodImport } from './routes/_transaction_method'
 import { Route as IncomeImport } from './routes/_income'
 import { Route as ExpenseImport } from './routes/_expense'
-import { Route as EventsImport } from './routes/_events'
 import { Route as ContactsImport } from './routes/_contacts'
 import { Route as CategoryImport } from './routes/_category'
+import { Route as EventsIndexImport } from './routes/events/index'
+import { Route as EventsEventsIdImport } from './routes/events/$eventsId'
 import { Route as TransactionmethodTransactionmethodImport } from './routes/_transaction_method/transaction_method'
 import { Route as IncomeIncomeImport } from './routes/_income/income'
 import { Route as ExpenseExpenseImport } from './routes/_expense/expense'
 import { Route as ContactsContactsImport } from './routes/_contacts/contacts'
 import { Route as CategoryCategoryImport } from './routes/_category/category'
 import { Route as authenticationAuthenticationImport } from './routes/(authentication)/authentication'
-import { Route as EventsEventsIndexImport } from './routes/_events/events.index'
-import { Route as EventsEventsEventsIdImport } from './routes/_events/events.$eventsId'
 
 // Create Virtual Routes
 
@@ -61,11 +60,6 @@ const ExpenseRoute = ExpenseImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const EventsRoute = EventsImport.update({
-  id: '/_events',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const ContactsRoute = ContactsImport.update({
   id: '/_contacts',
   getParentRoute: () => rootRoute,
@@ -80,6 +74,16 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const EventsIndexRoute = EventsIndexImport.update({
+  path: '/events/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsEventsIdRoute = EventsEventsIdImport.update({
+  path: '/events/$eventsId',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const TransactionmethodTransactionmethodRoute =
   TransactionmethodTransactionmethodImport.update({
@@ -113,16 +117,6 @@ const authenticationAuthenticationRoute =
     getParentRoute: () => rootRoute,
   } as any)
 
-const EventsEventsIndexRoute = EventsEventsIndexImport.update({
-  path: '/events/',
-  getParentRoute: () => EventsRoute,
-} as any)
-
-const EventsEventsEventsIdRoute = EventsEventsEventsIdImport.update({
-  path: '/events/$eventsId',
-  getParentRoute: () => EventsRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -137,10 +131,6 @@ declare module '@tanstack/react-router' {
     }
     '/_contacts': {
       preLoaderRoute: typeof ContactsImport
-      parentRoute: typeof rootRoute
-    }
-    '/_events': {
-      preLoaderRoute: typeof EventsImport
       parentRoute: typeof rootRoute
     }
     '/_expense': {
@@ -187,13 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TransactionmethodTransactionmethodImport
       parentRoute: typeof TransactionmethodImport
     }
-    '/_events/events/$eventsId': {
-      preLoaderRoute: typeof EventsEventsEventsIdImport
-      parentRoute: typeof EventsImport
+    '/events/$eventsId': {
+      preLoaderRoute: typeof EventsEventsIdImport
+      parentRoute: typeof rootRoute
     }
-    '/_events/events/': {
-      preLoaderRoute: typeof EventsEventsIndexImport
-      parentRoute: typeof EventsImport
+    '/events/': {
+      preLoaderRoute: typeof EventsIndexImport
+      parentRoute: typeof rootRoute
     }
   }
 }
@@ -204,13 +194,14 @@ export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   CategoryRoute.addChildren([CategoryCategoryRoute]),
   ContactsRoute.addChildren([ContactsContactsRoute]),
-  EventsRoute.addChildren([EventsEventsEventsIdRoute, EventsEventsIndexRoute]),
   ExpenseRoute.addChildren([ExpenseExpenseRoute]),
   IncomeRoute.addChildren([IncomeIncomeRoute]),
   TransactionmethodRoute.addChildren([TransactionmethodTransactionmethodRoute]),
   DashboardRoute,
   AboutLazyRoute,
   authenticationAuthenticationRoute,
+  EventsEventsIdRoute,
+  EventsIndexRoute,
 ])
 
 /* prettier-ignore-end */

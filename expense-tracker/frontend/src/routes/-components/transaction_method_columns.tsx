@@ -9,6 +9,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { TransactionMethod } from "@/types/type";
 import { DataTableColumnHeader } from "@/components/custom/table/data-table-column-header";
 import { PencilIcon, TrashIcon } from "lucide-react";
@@ -34,10 +40,19 @@ function TableRowActions({ id, data }: { id: any; data?: any }) {
         </SheetContent>
       </Sheet>
 
-      <TrashIcon
-        onClick={() => handleDelete(id)}
-        className="cursor-pointer w-4 h-4 stroke-destructive"
-      />
+      <TooltipProvider delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <TrashIcon
+              onClick={() => handleDelete(id)}
+              className="cursor-pointer w-4 h-4 stroke-destructive"
+            />
+          </TooltipTrigger>
+          <TooltipContent side="top" className="flex items-center gap-4">
+            <p>Delete</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 }

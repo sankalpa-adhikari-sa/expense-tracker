@@ -35,16 +35,24 @@ function CashflowOptions(props: CashflowOptionsType) {
       {
         name: `${props.category_type}`,
         type: "bar",
-        label: {
-          show: true,
-          position: "top",
-        },
+        // label: {
+        //   show: true,
+        //   position: "top",
+        // },
         emphasis: {
           focus: "series",
         },
         encode: {
           x: "transaction_date",
           y: "amount",
+        },
+        label: {
+          show: true,
+          position: "top",
+          formatter: function (props) {
+            //@ts-ignore
+            return "Rs. " + props.value.amount;
+          },
         },
       },
     ],

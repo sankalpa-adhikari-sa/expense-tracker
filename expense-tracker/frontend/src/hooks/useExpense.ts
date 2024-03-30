@@ -13,7 +13,7 @@ const updateExpenseByid = async ({ id, data }: { id: string; data: Data }) => {
 
 const fetchAllExpense = async (filterOption: string) => {
   return await pb.collection("expense").getFullList({
-    expand: "units,transaction_method,category",
+    expand: "units,transaction_method,category,events",
     filter: filterOption,
   });
 };

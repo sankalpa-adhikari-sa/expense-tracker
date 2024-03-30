@@ -161,7 +161,11 @@ export const incomeColumns: ColumnDef<Income>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate text-sm font-normal">
-            {row.getValue("Details")}
+            {row.getValue("Details") ? (
+              row.getValue("Details")
+            ) : (
+              <span className="text-muted-foreground">N/A</span>
+            )}
           </span>
         </div>
       );

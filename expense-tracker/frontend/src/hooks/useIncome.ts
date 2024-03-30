@@ -13,7 +13,7 @@ const updateIncomeByid = async ({ id, data }: { id: string; data: Data }) => {
 
 const fetchAllIncome = async (filterOption: string) => {
   return await pb.collection("income").getFullList({
-    expand: "units,transaction_method,category",
+    expand: "units,transaction_method,category,events",
     filter: filterOption,
   });
 };

@@ -29,9 +29,9 @@ function PieChartOption(props: PieChartOptionType) {
           //@ts-ignore
           props.value["category"] +
           " : " +
+          " Rs. " +
           //@ts-ignore
           props.value["amount"] +
-          " $" +
           "<br> Allotment : " +
           //@ts-ignore
           props.percent +
@@ -69,7 +69,7 @@ function PieChartOption(props: PieChartOptionType) {
         label: {
           formatter: function (props) {
             //@ts-ignore
-            return props.name + " ( " + props.value.amount + " $ ) ";
+            return props.name + " ( Rs. " + props.value.amount + " ) ";
           },
         },
       },
