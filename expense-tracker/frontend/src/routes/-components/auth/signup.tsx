@@ -13,6 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAddAdminData } from "@/hooks/useAuth";
+import { EraserIcon } from "lucide-react";
+import { useState } from "react";
 const formSchema = z
   .object({
     email: z.string().email({ message: "Email must be valid" }),
@@ -28,6 +30,7 @@ const formSchema = z
     message: "Password must be matching.",
   });
 export default function SignUp() {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
@@ -41,8 +44,16 @@ export default function SignUp() {
   });
   const { mutate: AddAdmin } = useAddAdminData();
   const onSubmitform = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    setIsLoading(true);
     AddAdmin(data);
+    form.reset();
+    form.clearErrors();
+    setIsLoading(false);
+  };
+  const handleReset = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    form.reset();
+    form.clearErrors();
   };
   return (
     <Form {...form}>
@@ -91,7 +102,14 @@ export default function SignUp() {
             </FormItem>
           )}
         />
-        <Button type="submit">SignUp</Button>
+        <div className="flex flex-row w-full gap-4">
+          <Button type="submit" className="w-full">
+            Signup
+          </Button>
+          <Button variant="destructive" onClick={handleReset}>
+            <EraserIcon className="w-4 h-4" />
+          </Button>
+        </div>
       </form>
     </Form>
   );

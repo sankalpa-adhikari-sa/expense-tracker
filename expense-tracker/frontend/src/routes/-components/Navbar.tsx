@@ -14,8 +14,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useAtom } from "jotai";
 import { collapsed_atom } from "@/lib/atoms/atom";
-import UserAvatar from "./user-avatar";
-import { ModeToggle } from "@/components/custom/mode_toggle";
+
 import { NavBot } from "@/components/custom/navbar-bot";
 
 export default function NavbarLayout() {
@@ -71,8 +70,6 @@ export default function NavbarLayout() {
           ]}
         />
         <div className="flex flex-col flex-wrap items-center">
-          <UserAvatar />
-          <ModeToggle />
           <NavBot
             isCollapsed={isCollapsed}
             links={[

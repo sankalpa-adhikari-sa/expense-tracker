@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useLoginAdmin } from "@/hooks/useAuth";
+import { EraserIcon } from "lucide-react";
 const formSchema = z.object({
   email: z.string().email({ message: "Email must be valid" }),
   password: z
@@ -39,6 +40,11 @@ export default function SignIn() {
     form.reset();
     form.clearErrors();
     setIsLoading(false);
+  };
+  const handleReset = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    form.reset();
+    form.clearErrors();
   };
   return (
     <Form {...form}>
@@ -72,9 +78,14 @@ export default function SignIn() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isLoading}>
-          Signin
-        </Button>
+        <div className="flex flex-row w-full gap-4">
+          <Button disabled={isLoading} type="submit" className="w-full">
+            Signin
+          </Button>
+          <Button variant="destructive" onClick={handleReset}>
+            <EraserIcon className="w-4 h-4" />
+          </Button>
+        </div>
       </form>
     </Form>
   );

@@ -14,7 +14,7 @@ export default function Auth() {
   const navigate = useNavigate();
   if (!pb.authStore.isValid) {
     return (
-      <div className="flex flex-wrap w-full h-full items-center justify-center">
+      <div className="flex flex-wrap w-screen h-screen items-center justify-center">
         <Card>
           <CardHeader>
             <CardTitle>Expense Tracker</CardTitle>

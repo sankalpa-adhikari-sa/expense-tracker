@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_private/_settings/settings")({
 function Settings() {
   return (
     <div>
-      <Tabs defaultValue="profile" className="w-full">
+      <Tabs defaultValue="general" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="profile">Profile</TabsTrigger>

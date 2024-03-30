@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { adminEmailSchema } from "@/types/type";
 import { useUpdateAdminEmail } from "@/hooks/useAuth";
+import { EraserIcon } from "lucide-react";
 function AdminEmailUpdateForm(props: any) {
   const formOptions = {
     resolver: zodResolver(adminEmailSchema),
@@ -71,10 +72,14 @@ function AdminEmailUpdateForm(props: any) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
-        <Button variant="destructive" onClick={handleReset}>
-          clear
-        </Button>
+        <div className="flex flex-row w-full gap-4">
+          <Button type="submit" className="w-full">
+            Update
+          </Button>
+          <Button variant="destructive" onClick={handleReset}>
+            <EraserIcon className="w-4 h-4" />
+          </Button>
+        </div>
       </form>
     </Form>
   );
