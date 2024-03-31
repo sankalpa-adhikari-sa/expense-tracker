@@ -26,6 +26,7 @@ export default function ContactsForm(props: any) {
       name: "",
       address: "",
       company: "",
+      position: "",
       details: "",
     },
   };
@@ -95,6 +96,19 @@ export default function ContactsForm(props: any) {
                 <FormLabel>Company</FormLabel>
                 <FormControl>
                   <Input placeholder="CIMMYT" {...field} />
+                </FormControl>
+                <FormMessage className="text-xs" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="position"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Position</FormLabel>
+                <FormControl>
+                  <Input placeholder="Manager" {...field} />
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>

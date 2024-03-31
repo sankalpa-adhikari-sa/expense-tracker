@@ -92,8 +92,12 @@ export const categoryColumns: ColumnDef<Category>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium capitalize">
-            {row.getValue("Details")}
+          <span className="max-w-[500px] truncate text-sm font-normal">
+            {row.getValue("Details") ? (
+              row.getValue("Details")
+            ) : (
+              <span className="text-muted-foreground">N/A</span>
+            )}
           </span>
         </div>
       );

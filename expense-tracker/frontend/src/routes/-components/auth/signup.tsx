@@ -103,7 +103,7 @@ export default function SignUp() {
           )}
         />
         <div className="flex flex-row w-full gap-4">
-          <Button type="submit" className="w-full">
+          <Button disabled={isLoading} type="submit" className="w-full">
             Signup
           </Button>
           <Button variant="destructive" onClick={handleReset}>

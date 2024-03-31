@@ -9,7 +9,7 @@ import PieChartOption from "@/lib/echarts/PieChartOption";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
-import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import { DollarSignIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 function Analytics(props: any) {
   const eventsId = props?.eventsId;
   const [dateRange, _] = useAtom(date_range_atom);
@@ -34,39 +34,40 @@ function Analytics(props: any) {
 
   return (
     <>
-      <div className="flex flex-row gap-4 items-center justify-between">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         <Card className="w-full">
-          <CardHeader>
-            <CardTitle>Income</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Income</CardTitle>
+            <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="flex flex-row gap-4 items-center">
-            <span className="text-muted-foreground text-xs">NPR</span>
-            <span className="font-bold">{total_income}</span>
+          <CardContent>
+            <div className="text-2xl font-bold">NPR {total_income}</div>
           </CardContent>
         </Card>
         <Card className="w-full">
-          <CardHeader>
-            <CardTitle>Expense</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Expense</CardTitle>
+            <TrendingDownIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="flex flex-row gap-4 items-center">
-            <span className="text-muted-foreground text-xs">NPR</span>
-            <span className="font-bold">{total_expense}</span>
+          <CardContent>
+            <div className="text-2xl font-bold">NPR {total_expense}</div>
           </CardContent>
         </Card>
         <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="flex flex-row gap-4">
-              {total_income - total_expense < 0 ? "Loss" : "Profit"}
-              {total_income - total_expense < 0 ? (
-                <TrendingDownIcon className="stroke-destructive" />
-              ) : (
-                <TrendingUpIcon className="stroke-green-600" />
-              )}
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              {total_income - total_expense < 0 ? "Total Loss" : "Total Profit"}
             </CardTitle>
+            {total_income - total_expense < 0 ? (
+              <TrendingDownIcon className=" h-4 w-4 stroke-destructive" />
+            ) : (
+              <TrendingUpIcon className="h-4 w-4 stroke-green-600" />
+            )}
           </CardHeader>
-          <CardContent className="flex flex-row gap-4 items-center">
-            <span className="text-muted-foreground text-xs">NPR</span>
-            <span className="font-bold">{total_income - total_expense}</span>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              NPR {Math.abs(total_income - total_expense)}
+            </div>
           </CardContent>
         </Card>
       </div>

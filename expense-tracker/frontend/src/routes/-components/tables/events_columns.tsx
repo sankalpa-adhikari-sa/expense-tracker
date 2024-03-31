@@ -140,7 +140,7 @@ export const eventsColumns: ColumnDef<Events>[] = [
       <DataTableColumnHeader column={column} title="Start Date" />
     ),
     cell: ({ row }) => {
-      const start_date = parseISO(row.getValue("End Date"));
+      const start_date = parseISO(row.getValue("Start Date"));
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
@@ -179,8 +179,12 @@ export const eventsColumns: ColumnDef<Events>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium capitalize">
-            {row.getValue("Details")}
+          <span className="max-w-[500px] truncate text-sm font-normal">
+            {row.getValue("Details") ? (
+              row.getValue("Details")
+            ) : (
+              <span className="text-muted-foreground">N/A</span>
+            )}
           </span>
         </div>
       );

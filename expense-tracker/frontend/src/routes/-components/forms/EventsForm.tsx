@@ -33,6 +33,7 @@ export default function EventsForm(props: any) {
     resolver: zodResolver(eventsSchema),
     defaultValues: {
       event_name: "",
+      details: "",
     },
   };
   const { mutate: addEventsData } = useAddEventsData();
@@ -159,6 +160,19 @@ export default function EventsForm(props: any) {
                 </Popover>
 
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="details"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Details</FormLabel>
+                <FormControl>
+                  <Input placeholder="details" {...field} />
+                </FormControl>
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />

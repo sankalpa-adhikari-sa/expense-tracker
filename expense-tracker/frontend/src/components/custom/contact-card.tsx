@@ -83,20 +83,20 @@ function ContactCard({ props }: any) {
           <div className="space-y-1">
             <h4 className="text-sm font-semibold">{props.company}</h4>
             <div className="flex flex-row items-center space-x-4">
-              <span className="text-xs text-muted-foreground">
-                {props.position ? props.postion : null}
+              <span className="text-xs text-muted-foreground capitalize">
+                {props.position ? props.position : null}
               </span>
               <div className="flex items-center">
                 <DropletIcon className="mr-2 h-4 w-4 opacity-70" />{" "}
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-muted-foreground capitalize">
                   {props.blood_group}
                 </span>
               </div>
             </div>
-            <p className="text-sm">{props.details}</p>
+            <p className="text-sm capitalize">{props.details}</p>
             <div className="flex items-center pt-2">
               <MapPinIcon className="mr-2 h-4 w-4 opacity-70" />{" "}
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-muted-foreground capitalize">
                 {props.address}
               </span>
             </div>

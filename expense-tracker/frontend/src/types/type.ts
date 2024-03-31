@@ -31,13 +31,18 @@ export const transactionMethodSchema = z.object({
   details: z.string().optional(),
   id: z.string().optional(),
 });
-export const eventsSchema = z.object({
-  event_name: z.string().min(1, { message: "Event Name is required." }),
-  event_start_date: z.date(),
-  event_end_date: z.date(),
-  details: z.string().optional(),
-  id: z.string().optional(),
-});
+export const eventsSchema = z
+  .object({
+    event_name: z.string().min(1, { message: "Event Name is required." }),
+    event_start_date: z.date(),
+    event_end_date: z.date(),
+    details: z.string().optional(),
+    id: z.string().optional(),
+  })
+  .refine((data) => data.event_start_date <= data.event_end_date, {
+    message: "Event End date must be greater than or equal to start date",
+    path: ["event_end_date"],
+  });
 export const categorySchema = z.object({
   name: z.string().min(1, { message: "Category is required." }),
   details: z.string().optional(),
@@ -65,8 +70,9 @@ export const adminEmailSchema = z
   });
 export const contactsSchema = z.object({
   name: z.string().min(1, { message: "Name is required." }),
-  company: z.string().optional(),
   address: z.string().optional(),
+  company: z.string().optional(),
+  position: z.string().optional(),
   email: z.string().email().optional(),
   contact_number: z.number().optional(),
   details: z.string().optional(),
