@@ -56,6 +56,7 @@ Start the server
 
 ![Screenshot 2024-04-06 231412](https://github.com/sankalpa-adhikari-sa/expense-tracker/assets/106131019/034c2bf9-810b-4963-8d5b-e1f337c8edd1)
 ![Screenshot 2024-04-06 231431](https://github.com/sankalpa-adhikari-sa/expense-tracker/assets/106131019/5f5e39d4-f08a-4364-9f93-f46142c53de7)
+![Screenshot 2024-04-06 231338](https://github.com/sankalpa-adhikari-sa/expense-tracker/assets/106131019/31e77678-1588-499c-b522-3c6c804ebdec)
 
 ![Screenshot 2024-04-06 231530](https://github.com/sankalpa-adhikari-sa/expense-tracker/assets/106131019/99ff021f-8d9f-4620-a036-c0bcf1f18f6e)
 
