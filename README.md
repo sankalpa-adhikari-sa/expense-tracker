@@ -1,7 +1,7 @@
 
 # Expense Tracker
 
-This project is an Expense Tracker application built using React.js, Tanstack Router, Echarts, Jotai, Wails, and Pocketbase. It allows users to track their income and expenses, visualize analytics for their financial events, and export data to various formats such as CSV, Excel, and TXT. The application provides a user-friendly interface for managing financial transactions efficiently.
+This project is an Expense Tracker application, a windows application built using React.js, go, Tanstack Router, Echarts, Jotai, shadcn UI, Wails, and Pocketbase. It allows users to track their income and expenses, visualize analytics for their financial events, and export data to various formats such as CSV, Excel, and TXT. The application provides a user-friendly interface for managing financial transactions efficiently.
 
 ## Features
 
@@ -15,7 +15,7 @@ This project is an Expense Tracker application built using React.js, Tanstack Ro
 ## Tech Stack
 
 - **React.js**
-
+- **Go**
 - **Tanstack Router**
 
 - **Echarts**
