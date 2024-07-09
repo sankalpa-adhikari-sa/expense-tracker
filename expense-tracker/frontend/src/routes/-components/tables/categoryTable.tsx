@@ -2,7 +2,7 @@
 import { useCategory } from "@/hooks/useCategory";
 import { DataTable } from "@/components/custom/table/data-table";
 import { format } from "date-fns";
-import { categoryColumns } from "./category_columns";
+import { categoryColumns } from "./categoryColumns";
 function CategoryTable() {
   const { data: CategoryData = [] }: any = useCategory("");
 

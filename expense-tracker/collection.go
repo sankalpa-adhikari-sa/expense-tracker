@@ -137,6 +137,14 @@ func addEventsCollection(app *pocketbase.PocketBase) func(e *core.ServeEvent) er
                         Options:  &schema.DateOptions{},
                     },
                     &schema.SchemaField{
+                        Name:     "event_budget",
+                        Type:     schema.FieldTypeNumber,
+                        Unique:   false,
+                        Required: false,
+                        System:   false,
+                        Options:  &schema.NumberOptions{},
+                    },
+                    &schema.SchemaField{
                         Name:     "details",
                         Type:     schema.FieldTypeText,
                         Unique:   false,

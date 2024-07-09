@@ -24,6 +24,7 @@ import { Route as PrivateContactsImport } from './routes/_private/_contacts'
 import { Route as PrivateCategoryImport } from './routes/_private/_category'
 import { Route as authenticationAuthenticationImport } from './routes/(authentication)/authentication'
 import { Route as PrivateEventsIndexImport } from './routes/_private/events/index'
+import { Route as PrivateBudgetingIndexImport } from './routes/_private/budgeting/index'
 import { Route as PrivateEventsEventsIdImport } from './routes/_private/events/$eventsId'
 import { Route as PrivateTransactionmethodTransactionmethodImport } from './routes/_private/_transaction_method/transaction_method'
 import { Route as PrivateSettingsSettingsImport } from './routes/_private/_settings/settings'
@@ -31,6 +32,8 @@ import { Route as PrivateIncomeIncomeImport } from './routes/_private/_income/in
 import { Route as PrivateExpenseExpenseImport } from './routes/_private/_expense/expense'
 import { Route as PrivateContactsContactsImport } from './routes/_private/_contacts/contacts'
 import { Route as PrivateCategoryCategoryImport } from './routes/_private/_category/category'
+import { Route as PrivateEventsEventsIdDashboardImport } from './routes/_private/events/$eventsId.dashboard'
+import { Route as PrivateEventsEventsIdBudgetingImport } from './routes/_private/events/$eventsId.budgeting'
 
 // Create Virtual Routes
 
@@ -99,6 +102,11 @@ const PrivateEventsIndexRoute = PrivateEventsIndexImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivateBudgetingIndexRoute = PrivateBudgetingIndexImport.update({
+  path: '/budgeting/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivateEventsEventsIdRoute = PrivateEventsEventsIdImport.update({
   path: '/events/$eventsId',
   getParentRoute: () => PrivateRoute,
@@ -134,6 +142,18 @@ const PrivateCategoryCategoryRoute = PrivateCategoryCategoryImport.update({
   path: '/category',
   getParentRoute: () => PrivateCategoryRoute,
 } as any)
+
+const PrivateEventsEventsIdDashboardRoute =
+  PrivateEventsEventsIdDashboardImport.update({
+    path: '/dashboard',
+    getParentRoute: () => PrivateEventsEventsIdRoute,
+  } as any)
+
+const PrivateEventsEventsIdBudgetingRoute =
+  PrivateEventsEventsIdBudgetingImport.update({
+    path: '/budgeting',
+    getParentRoute: () => PrivateEventsEventsIdRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -211,9 +231,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateEventsEventsIdImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/budgeting/': {
+      preLoaderRoute: typeof PrivateBudgetingIndexImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/events/': {
       preLoaderRoute: typeof PrivateEventsIndexImport
       parentRoute: typeof PrivateImport
+    }
+    '/_private/events/$eventsId/budgeting': {
+      preLoaderRoute: typeof PrivateEventsEventsIdBudgetingImport
+      parentRoute: typeof PrivateEventsEventsIdImport
+    }
+    '/_private/events/$eventsId/dashboard': {
+      preLoaderRoute: typeof PrivateEventsEventsIdDashboardImport
+      parentRoute: typeof PrivateEventsEventsIdImport
     }
   }
 }
@@ -232,7 +264,11 @@ export const routeTree = rootRoute.addChildren([
       PrivateTransactionmethodTransactionmethodRoute,
     ]),
     PrivateDashboardRoute,
-    PrivateEventsEventsIdRoute,
+    PrivateEventsEventsIdRoute.addChildren([
+      PrivateEventsEventsIdBudgetingRoute,
+      PrivateEventsEventsIdDashboardRoute,
+    ]),
+    PrivateBudgetingIndexRoute,
     PrivateEventsIndexRoute,
   ]),
   AboutLazyRoute,

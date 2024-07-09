@@ -8,7 +8,7 @@
     !define INFO_PROJECTNAME "expense-tracker"
 !endif
 !ifndef INFO_COMPANYNAME
-    !define INFO_COMPANYNAME "Sankalpa Adhikari"
+    !define INFO_COMPANYNAME "ExpTrack"
 !endif
 !ifndef INFO_PRODUCTNAME
     !define INFO_PRODUCTNAME "Expense Tracker"

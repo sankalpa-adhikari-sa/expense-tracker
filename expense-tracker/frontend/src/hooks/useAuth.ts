@@ -56,8 +56,8 @@ export const useAddAdminData = () => {
       toast.error(`${error}`);
     },
     onSuccess: () => {
+      toast.success("Admin Account Created");
       navigate({ to: "/dashboard" });
-      toast.success("Admin Login Success");
     },
   });
 };

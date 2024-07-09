@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AccountPage from "@/routes/-components/page/account-page";
-import GeneralPage from "@/routes/-components/page/general-page";
+import AccountPage from "@/routes/-components/page/accountPage";
+import GeneralPage from "@/routes/-components/page/generalPage";
 
 export const Route = createFileRoute("/_private/_settings/settings")({
   component: Settings,

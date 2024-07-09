@@ -20,6 +20,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -39,6 +40,7 @@ interface DataTableProps<TData, TValue> {
     data: Array<{ label: string; value: string }>;
   }>;
   dateFilterRange?: any;
+  showFooter?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -48,6 +50,7 @@ export function DataTable<TData, TValue>({
   filename,
   tableSearchColumn,
   dateFilterRange,
+  showFooter,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -137,6 +140,28 @@ export function DataTable<TData, TValue>({
               </TableRow>
             )}
           </TableBody>
+          {showFooter ? (
+            <TableFooter>
+              {table.getFooterGroups().map((footerGroup) => {
+                return (
+                  <TableRow key={footerGroup.id}>
+                    {footerGroup.headers.map((footer) => {
+                      return (
+                        <TableCell key={footer.id} colSpan={footer.colSpan}>
+                          {footer.isPlaceholder
+                            ? null
+                            : flexRender(
+                                footer.column.columnDef.footer,
+                                footer.getContext()
+                              )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableFooter>
+          ) : null}
         </Table>
       </div>
       <DataTablePagination table={table} />

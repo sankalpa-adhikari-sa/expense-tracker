@@ -9,6 +9,7 @@ import {
   CalendarClockIcon,
   ContactIcon,
   SettingsIcon,
+  HandCoinsIcon,
 } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -54,6 +55,12 @@ export default function NavbarLayout() {
               label: "",
               icon: WalletIcon,
               href: "/transaction_method",
+            },
+            {
+              title: "Budget",
+              label: "",
+              icon: HandCoinsIcon,
+              href: "/budgeting",
             },
             {
               title: "Events",

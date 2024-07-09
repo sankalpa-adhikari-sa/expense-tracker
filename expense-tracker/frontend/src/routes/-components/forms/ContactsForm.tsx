@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -16,6 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { contactsSchema } from "@/types/type";
 import { useAddContactsData, useUpdateContactsByID } from "@/hooks/useContacts";
+import { EraserIcon } from "lucide-react";
 export default function ContactsForm(props: any) {
   const data = props?.data;
   const isAddMode = !data;
@@ -190,11 +189,14 @@ export default function ContactsForm(props: any) {
               </FormItem>
             )}
           />
-          <Button type="submit">{isAddMode ? "Submit" : "Edit"}</Button>{" "}
-          <Button variant="destructive" onClick={handleReset}>
-            {" "}
-            clear
-          </Button>
+          <div className="flex flex-row w-full gap-4">
+            <Button type="submit" className="w-full">
+              {isAddMode ? "Submit" : "Edit"}
+            </Button>
+            <Button variant="destructive" onClick={handleReset}>
+              <EraserIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </form>
       </ScrollArea>
     </Form>

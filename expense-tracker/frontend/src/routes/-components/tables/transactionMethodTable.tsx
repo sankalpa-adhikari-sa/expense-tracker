@@ -2,7 +2,7 @@
 import { useTransactionMethod } from "@/hooks/useTransactionMethod";
 import { DataTable } from "@/components/custom/table/data-table";
 import { format } from "date-fns";
-import { transactionMethodColumns } from "./transaction_method_columns";
+import { transactionMethodColumns } from "./transactionMethodColumns";
 
 function TransactionMethodTable() {
   const { data: TransactionMethodData = [] }: any = useTransactionMethod();

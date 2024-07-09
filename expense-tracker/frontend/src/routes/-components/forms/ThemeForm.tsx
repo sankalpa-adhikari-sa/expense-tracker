@@ -30,7 +30,8 @@ const defaultValues: Partial<AppearanceFormValues> = {
 };
 
 export function ThemeForm() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues,
@@ -55,7 +56,7 @@ export function ThemeForm() {
               <FormMessage />
               <RadioGroup
                 onValueChange={field.onChange}
-                defaultValue={field.value}
+                defaultValue={theme}
                 className="grid max-w-md grid-cols-2 gap-8 pt-2"
               >
                 <FormItem>

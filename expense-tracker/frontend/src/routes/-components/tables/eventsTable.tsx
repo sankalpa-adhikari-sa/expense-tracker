@@ -2,7 +2,7 @@
 import { useEvents } from "@/hooks/useEvents";
 import { DataTable } from "@/components/custom/table/data-table";
 import { format } from "date-fns";
-import { eventsColumns } from "./events_columns";
+import { eventsColumns } from "./eventsColumns";
 
 function EventsTable() {
   const { data: EventsData = [] }: any = useEvents();

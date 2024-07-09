@@ -24,7 +24,7 @@ import { useAddEventsData, useUpdateEventsByID } from "@/hooks/useEvents";
 import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, EraserIcon } from "lucide-react";
 export default function EventsForm(props: any) {
   const data = props?.data;
   const isAddMode = !data;
@@ -54,7 +54,6 @@ export default function EventsForm(props: any) {
     updateEventsData({ id: data.id, data: data });
   };
   const onSubmitForm = (data: z.infer<typeof eventsSchema>) => {
-    form.reset();
     isAddMode ? createEvents(data) : updateEvents(data);
   };
   const handleReset = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -165,6 +164,24 @@ export default function EventsForm(props: any) {
           />
           <FormField
             control={form.control}
+            name="event_budget"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Event Budget</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    placeholder="Budget"
+                    {...field}
+                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                  />
+                </FormControl>
+                <FormMessage className="text-xs" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="details"
             render={({ field }) => (
               <FormItem>
@@ -176,11 +193,14 @@ export default function EventsForm(props: any) {
               </FormItem>
             )}
           />
-          <Button type="submit">{isAddMode ? "Submit" : "Edit"}</Button>{" "}
-          <Button variant="destructive" onClick={handleReset}>
-            {" "}
-            clear
-          </Button>
+          <div className="flex flex-row w-full gap-4">
+            <Button type="submit" className="w-full">
+              {isAddMode ? "Submit" : "Edit"}
+            </Button>
+            <Button variant="destructive" onClick={handleReset}>
+              <EraserIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </form>
       </ScrollArea>
     </Form>

@@ -16,6 +16,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { categorySchema } from "@/types/type";
 import { useAddCategoryData, useUpdateCategoryByID } from "@/hooks/useCategory";
+import { EraserIcon } from "lucide-react";
 export default function CategoryForm(props: any) {
   const data = props?.data;
   const isAddMode = !data;
@@ -84,11 +85,14 @@ export default function CategoryForm(props: any) {
               </FormItem>
             )}
           />
-          <Button type="submit">{isAddMode ? "Submit" : "Edit"}</Button>{" "}
-          <Button variant="destructive" onClick={handleReset}>
-            {" "}
-            clear
-          </Button>
+          <div className="flex flex-row w-full gap-4">
+            <Button type="submit" className="w-full">
+              {isAddMode ? "Submit" : "Edit"}
+            </Button>
+            <Button variant="destructive" onClick={handleReset}>
+              <EraserIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </form>
       </ScrollArea>
     </Form>

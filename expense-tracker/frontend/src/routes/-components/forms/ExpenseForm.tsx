@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, EraserIcon } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -317,11 +317,14 @@ export default function ExpenseForm(props: any) {
               </FormItem>
             )}
           />
-          <Button type="submit">{isAddMode ? "Submit" : "Edit"}</Button>{" "}
-          <Button variant="destructive" onClick={handleReset}>
-            {" "}
-            clear
-          </Button>
+          <div className="flex flex-row w-full gap-4">
+            <Button type="submit" className="w-full">
+              {isAddMode ? "Submit" : "Edit"}
+            </Button>
+            <Button variant="destructive" onClick={handleReset}>
+              <EraserIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </form>
       </ScrollArea>
     </Form>

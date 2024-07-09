@@ -83,7 +83,7 @@ function Analytics(props: any) {
           </CardContent>
         </Card>
 
-        <div className="flex flex-row w-full gap-3">
+        <div className="flex  lg:flex-row md:flex-col w-full gap-3">
           <Card className="w-full">
             <CardHeader className="font-bold">Income by Category</CardHeader>
             <CardContent>
@@ -120,7 +120,7 @@ function Analytics(props: any) {
             />
           </CardContent>
         </Card>
-        <div className="flex flex-row w-full gap-3">
+        <div className="flex lg:flex-row md:flex-col w-full gap-3">
           <Card className="w-full">
             <CardHeader className="font-bold">Expense by Category</CardHeader>
 

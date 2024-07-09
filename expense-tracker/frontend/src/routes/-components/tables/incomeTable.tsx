@@ -4,7 +4,7 @@ import { Category, TransactionMethod } from "@/types/type";
 import { useCategory } from "@/hooks/useCategory";
 import { useIncome } from "@/hooks/useIncome";
 import { DataTable } from "@/components/custom/table/data-table";
-import { incomeColumns } from "./income_columns";
+import { incomeColumns } from "./incomeColumns";
 import { format } from "date-fns";
 import { useAtom } from "jotai";
 import { dr_income_atom } from "@/lib/atoms/atom";

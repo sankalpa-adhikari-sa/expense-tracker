@@ -9,6 +9,7 @@ import {
   FormItem,
   FormField,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -81,8 +82,11 @@ export default function SignUp() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password" {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
+              <FormDescription className="text-xs">
+                Password must be at least 10 characters long
+              </FormDescription>
 
               <FormMessage />
             </FormItem>
@@ -95,7 +99,7 @@ export default function SignUp() {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password" {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -104,7 +108,7 @@ export default function SignUp() {
         />
         <div className="flex flex-row w-full gap-4">
           <Button disabled={isLoading} type="submit" className="w-full">
-            Signup
+            Create Admin
           </Button>
           <Button variant="destructive" onClick={handleReset}>
             <EraserIcon className="w-4 h-4" />

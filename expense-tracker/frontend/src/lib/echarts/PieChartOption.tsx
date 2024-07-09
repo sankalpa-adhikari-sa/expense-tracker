@@ -18,7 +18,6 @@ function PieChartOption(props: PieChartOptionType) {
     ],
     tooltip: {
       trigger: "item",
-      //   formatter: "{a} <br/>{b} : {c} ({d}%)",
       formatter: function (props) {
         let tooltipContent =
           //@ts-ignore
@@ -69,7 +68,7 @@ function PieChartOption(props: PieChartOptionType) {
         label: {
           formatter: function (props) {
             //@ts-ignore
-            return props.name + " ( Rs. " + props.value.amount + " ) ";
+            return props.name + " (Rs. " + props.value.amount + ") ";
           },
         },
       },

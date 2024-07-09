@@ -22,6 +22,22 @@ export const incomeSchema = z.object({
   expand: z.any().optional(),
   id: z.string().optional(),
 });
+export const budgetGranulityCategorySchema = z.object({
+  category: z.string(),
+  category_budget: z.number(),
+  overflow_message: z.string().optional(),
+  events: z.string().optional(),
+  budgeting: z.string().optional(),
+  id: z.string().optional(),
+});
+export const budgetGranulityTransactionMethodSchema = z.object({
+  transaction_method: z.string(),
+  transaction_method_budget: z.number(),
+  overflow_message: z.string().optional(),
+  events: z.string().optional(),
+  budgeting: z.string().optional(),
+  id: z.string().optional(),
+});
 
 export const unitsSchema = z.object({
   name: z.string().min(1, { message: "Unit is required." }),
@@ -36,6 +52,7 @@ export const eventsSchema = z
     event_name: z.string().min(1, { message: "Event Name is required." }),
     event_start_date: z.date(),
     event_end_date: z.date(),
+    event_budget: z.number().optional(),
     details: z.string().optional(),
     id: z.string().optional(),
   })
@@ -89,6 +106,12 @@ export type Category = z.infer<typeof categorySchema>;
 export type Contacts = z.infer<typeof contactsSchema>;
 export type TransactionMethod = z.infer<typeof transactionMethodSchema>;
 export type Events = z.infer<typeof eventsSchema>;
+export type BudgetGranulityCategory = z.infer<
+  typeof budgetGranulityCategorySchema
+>;
+export type BudgetGranulityTransactionMethod = z.infer<
+  typeof budgetGranulityTransactionMethodSchema
+>;
 export type Units = z.infer<typeof unitsSchema>;
 export type AdminPassword = z.infer<typeof adminPasswordSchema>;
 export type AdminEmail = z.infer<typeof adminEmailSchema>;
